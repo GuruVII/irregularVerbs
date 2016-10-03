@@ -1,5 +1,5 @@
 {
-  "name": "karatepanther",
+  "name": "irregularverbs",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -7,12 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "BSD-2-Clause",
   "dependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.3.0",
     "gulp-notify": "^2.2.0",
     "gulp-webserver": "^0.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/GuruVII/irregularVerbs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GuruVII/irregularVerbs/issues"
   }
 }

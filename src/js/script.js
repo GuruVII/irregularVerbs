@@ -1,0 +1,1 @@
+var masterVerbArray = [["sedeti", "sit", "sat", "sat"], ["biti", "be", "was", "been"]]
