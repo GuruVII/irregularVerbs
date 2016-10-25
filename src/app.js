@@ -6,3 +6,5 @@ var app = angular
 			'ui.bootstrap'
 
 ]);
+
+	console.log ("test");
