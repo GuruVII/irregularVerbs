@@ -1,6 +1,6 @@
 app.controller("MainController", ["$scope", function($scope) {
 var masterVerbArray = [[0, "sedeti", "sit", "sat", "sat", 0.2], [1, "biti", "be", "was", "been", 0.2], [2, "voziti", "drive", "drove", "driven", 0.01], [3, "jesti","eat","ate", "eaten", 0.01]];
-$scope.writtenVerbs = [];
+$scope.writtenVerbs = []; //all the verbs the user inputed
 
 $("#start").click(function(){ //starts the entire page and selects the wrods.
 	$("#input-area").removeClass("hidden");
@@ -47,23 +47,38 @@ function WordSelect(){ //This funtion selects the words we are going to use by c
 };
 
 $scope.submit = function(){
-	var selectedVerbArray = JSON.parse(localStorage.getItem("selectedVerbArray"));
-	console.log(selectedVerbArray)
+	var selectedVerbArray = JSON.parse(localStorage.getItem("selectedVerbArray")); //all the verbs that were selected by the computer
+	var tenses = ["original", "presentSimple", "pastSimple", "pastParticiple"];
 	var checkedVerb = []; //contain the verbs the user inputed
-	checkedVerb.push($scope.writtenVerbs.length);
-	checkedVerb.push($scope.presentSimple)
-	checkedVerb.push($scope.pastSimple)
-	checkedVerb.push($scope.pastParticiple)
-	$scope.writtenVerbs.push(checkedVerb);
-	console.log(checkedVerb);
+	var correctAnwsers;
+	var totalAnwsers;
+	checkedVerb.push($scope.writtenVerbs.length); //is used as index
+	tenses.forEach(function(currentValue){ 
+		checkedVerb.push($scope[currentValue]) //dynamic scope names
+	});
+	$scope.writtenVerbs.push(checkedVerb); //all the verbs the user inputted
 	for (var i = 2; i < 5; i++){
-		console.log(i+ " " +selectedVerbArray[checkedVerb[0]][i]+ " " + checkedVerb[i-1] )
-		if (selectedVerbArray[checkedVerb[0]][i]==checkedVerb[i-1]){
-			console.log(i-1 + ". ok")
+		console.log(i+ " " +selectedVerbArray[checkedVerb[0]][i]+ " " + checkedVerb[i] )
+		if (selectedVerbArray[checkedVerb[0]][i].toUpperCase()==checkedVerb[i].toUpperCase()){ //checks if the values are the same
+			console.log(i + ". ok")
+			correctAnwsers++;
 		}
 		else{
-			console.log(i-1 +". ni ok")
+			console.log(i +". ni ok")
+			totalAnwsers++;
 		};
+	};
+	tenses.forEach(function(currentValue){ 
+		$scope[currentValue] = "" 
+	});
+	console.log($scope.writtenVerbs.length + " dolžina writtenwords");
+	console.log(selectedVerbArray.length + " dolžina electedVerbArra");
+	if ($scope.writtenVerbs.length == selectedVerbArray.length ){
+		console.log("konec")
+	}
+	else
+	{
+		$scope.verb = selectedVerbArray[$scope.writtenVerbs.length][1]; //shows next verb
 	};
 };
 
