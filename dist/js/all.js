@@ -50,31 +50,46 @@ $scope.submit = function(){
 	var selectedVerbArray = JSON.parse(localStorage.getItem("selectedVerbArray")); //all the verbs that were selected by the computer
 	var tenses = ["original", "presentSimple", "pastSimple", "pastParticiple"];
 	var checkedVerb = []; //contain the verbs the user inputed
-	var correctAnwsers;
-	var totalAnwsers;
+	var correctAnwsers = 0;
 	checkedVerb.push($scope.writtenVerbs.length); //is used as index
 	tenses.forEach(function(currentValue){ 
 		checkedVerb.push($scope[currentValue]) //dynamic scope names
 	});
-	$scope.writtenVerbs.push(checkedVerb); //all the verbs the user inputted
-	for (var i = 2; i < 5; i++){
+	for (var i = 2; i < 5; i++){ //we start at two, becuase at 0 is the index and at 1 there is the original (nontranslated word)
 		console.log(i+ " " +selectedVerbArray[checkedVerb[0]][i]+ " " + checkedVerb[i] )
-		if (selectedVerbArray[checkedVerb[0]][i].toUpperCase()==checkedVerb[i].toUpperCase()){ //checks if the values are the same
+		if (selectedVerbArray[checkedVerb[0]][i].toUpperCase()==checkedVerb[i].toUpperCase().trim()){ //checks if the values are the same
 			console.log(i + ". ok")
-			correctAnwsers++;
+			correctAnwsers++
+			checkedVerb.push("green")
 		}
 		else{
 			console.log(i +". ni ok")
-			totalAnwsers++;
+			checkedVerb.push("red")
 		};
 	};
-	tenses.forEach(function(currentValue){ 
+	if ((correctAnwsers/3)==1){
+		checkedVerb.push(1);
+		//inserts chance decrease in here
+	}
+	else {
+		checkedVerb.push(0);
+		//inseart chance increase in here
+	};
+	$scope.writtenVerbs.push(checkedVerb); //all the verbs the user inputted
+	console.log($scope.writtenVerbs);
+	tenses.forEach(function(currentValue){ //empties the inut fields
 		$scope[currentValue] = "" 
 	});
-	console.log($scope.writtenVerbs.length + " dolžina writtenwords");
-	console.log(selectedVerbArray.length + " dolžina electedVerbArra");
-	if ($scope.writtenVerbs.length == selectedVerbArray.length ){
-		console.log("konec")
+	console.log(selectedVerbArray);
+	if ($scope.writtenVerbs.length == selectedVerbArray.length ){ //compares the amount of inputed verbs with the amount selected by the computer
+		correctAnwsers = 0;
+		$scope.writtenVerbs.forEach(function(currentValue){
+			console.log(currentValue);
+			if (currentValue[5] == 1){
+				correctAnwsers++
+			};
+		});
+		$scope.result = (correctAnwsers/selectedVerbArray.length)*100
 	}
 	else
 	{
