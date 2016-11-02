@@ -67,9 +67,9 @@
             <b>
               <div class="col-xs-1 text-right" ng-bind="verbs[0]+1 +'.'">.</div>
               <div class="col-xs-2 text-center" ng-bind="verbs[1]"></div>
-              <div class="col-xs-2 text-center" ng-class="verbs[5]" ng-bind="verbs[2]"></div>
-              <div class="col-xs-2 text-center" ng-class="verbs[6]" ng-bind="verbs[3]"></div>
-              <div class="col-xs-2 text-center" ng-class="verbs[7]" ng-bind="verbs[4]"></div>
+              <div class="col-xs-2 text-center" ng-class="verbs[5]" ng-bind="verbs[2]" data-toggle="tooltip" data-placement="right" title="{{selectedVerbs[$index][2]}}" tooltip></div>
+              <div class="col-xs-2 text-center" ng-class="verbs[6]" ng-bind="verbs[3]" data-toggle="tooltip" data-placement="right" title="{{selectedVerbs[$index][3]}}" tooltip></div>
+              <div class="col-xs-2 text-center" ng-class="verbs[7]" ng-bind="verbs[4]" data-toggle="tooltip" data-placement="right" title="{{selectedVerbs[$index][4]}}" tooltip></div>
               <div class="col-xs-2 text-center green" ng-if="verbs[8]==1"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Correct</div>
               <div class="col-xs-2 text-center red" ng-if="verbs[8]==0"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Incorrect</div>
             </b>

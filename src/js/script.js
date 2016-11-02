@@ -1,4 +1,6 @@
+
 app.controller("MainController", ["$scope", function($scope) {
+$('[data-toggle="tooltip"]').tooltip();
 var masterVerbArray = [[0, "sedeti", "sit", "sat", "sat", 0.01], [1, "biti", "be", "was", "been", 0.01], [2, "voziti", "drive", "drove", "driven", 0.01], [3, "jesti","eat","ate", "eaten", 0.01]];
 $scope.writtenVerbs = []; //all the verbs the user inputed
 
@@ -113,17 +115,34 @@ $scope.submit = function(){
 		$scope.verb = selectedVerbArray[$scope.writtenVerbs.length][1]; //shows next verb
 	};
 
+
+
+	$scope.selectedVerbs = selectedVerbArray;
+
 	var tempArray = JSON.parse(localStorage.getItem("verbArray"));
 	tempArray.splice(selectedVerbArray[checkedVerb[0]][0],1,selectedVerbArray[checkedVerb[0]]);
 	localStorage["verbArray"] = JSON.stringify(tempArray);
 };
 
-$scope.localStorageClear = function () {
-	localStorage.clear();
-	console.log("local storage supposedly clear");
-}
-
 createVerbStorage();
 WordSelect();
 
 }]);
+;
+
+app.directive('tooltip', function(){ //enables tooltip in ng-repeat, source: http://www.pixelstech.net/article/1463842972-Show-Bootstrap-tooltip-in-AngularJS-ng-repeat-elements
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs){
+            $(element).hover(function(){
+                // on mouseenter
+                if ($(element)["0"]["className"].includes("red")){ //only shows tooltip if the the class of $element contains "red"
+	                $(element).tooltip('show');
+            	};
+            }, function(){
+                // on mouseleave
+                $(element).tooltip('hide');
+            });
+        }
+    };
+});
