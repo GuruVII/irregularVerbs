@@ -131,7 +131,6 @@ function WordSelect(){ //This funtion selects the words we are going to use by c
 			selectedWords.push(workArray[i]); //push selected words into selectedWords
 			workArray.splice(workArray[i], 1);
 		};
-		console.log("selected words length:" + selectedWords.length);
 		if(i == (workArray.length-1)){ //if you reached the end of the array, start over and throw the die again.
 				i = 0;
 				var dieRoll = Math.random();
@@ -175,51 +174,39 @@ $scope.submit = function(){
 		checkedVerb.push($scope[currentValue]); //dynamic scope names
 	});
 	for (var i = 2; i < 5; i++){ //we start at two, becuase at 0 is the index and at 1 there is the original (nontranslated word)
-		console.log(i+ " " +selectedVerbArray[checkedVerb[0]][i]+ " " + checkedVerb[i] )
 		if (selectedVerbArray[checkedVerb[0]][i].toUpperCase()==checkedVerb[i].toUpperCase().trim()){ //checks if the values are the same
-			console.log(selectedVerbArray)
-			console.log(i + ". ok")
 			correctAnwsers++
 			checkedVerb.push("green");
 		}
 		else{
-			console.log(i +". ni ok")
 			checkedVerb.push("red");
 		};
 	};
 	if ((correctAnwsers/3)==1){
 		checkedVerb.push(1);
-		console.log(selectedVerbArray[checkedVerb[0]][5])
 		if (selectedVerbArray[checkedVerb[0]][5] > 0.02){ //if the anwser is correct and the chance isn't already 0.02, it lowers the chance of the word appearring
 			selectedVerbArray[checkedVerb[0]][5] = selectedVerbArray[checkedVerb[0]][5] - 0.01;
-		console.log(selectedVerbArray[checkedVerb[0]]);
-		}
-		
+		};	
 	}
 	else {
 		checkedVerb.push(0);
 		if (selectedVerbArray[checkedVerb[0]][5] < 0.96){ //if the anwser is correct and the chance isn't already 0.96, it increase the chance of the word appearing
 			selectedVerbArray[checkedVerb[0]][5] = selectedVerbArray[checkedVerb[0]][5] + 0.05; 
-		console.log(selectedVerbArray[checkedVerb[0]]);
-		}
+		};
 	};
 	$scope.writtenVerbs.push(checkedVerb); //all the verbs the user inputted
-	console.log($scope.writtenVerbs);
 	tenses.forEach(function(currentValue){ //empties the input fields
 		$scope[currentValue] = "" ;
 	});
-	console.log(selectedVerbArray);
 	if ($scope.writtenVerbs.length == selectedVerbArray.length ){ //compares the amount of inputed verbs with the amount selected by the computer
 		correctAnwsers = 0;
 		$("#submit").addClass("disabled")
 		$("#reset").focus();
 		$scope.writtenVerbs.forEach(function(currentValue){
-			console.log(currentValue);
 			if (currentValue[8] == 1){ //the ninth entry in the writtenverbsArray tells us if all the three vers are correct
 				correctAnwsers++
 			};
 		});
-		console.log(correctAnwsers);
 		$scope.result = (correctAnwsers/selectedVerbArray.length)*100
 	}
 	else
