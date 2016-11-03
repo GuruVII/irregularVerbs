@@ -47,16 +47,16 @@
               <span class="form-control" ng-bind="verb" ng-model="original"><span>
             </div>
             <div class="form-group">
-              <label for="present-simple">Present simple:</label>
-              <input type="text" class="form-control" ng-model="presentSimple">
+              <label for="presentSimple">Present simple:</label>
+              <input id ="presentSimple" type="text" class="form-control" ng-model="presentSimple">
             </div>
             <div class="form-group">
-              <label for="past-simple">Past simple:</label>
-              <input type="text" class="form-control" ng-model="pastSimple">
+              <label for="pastSimple">Past simple:</label>
+              <input id ="pastSimple" type="text" class="form-control" ng-model="pastSimple">
             </div>
             <div class="form-group">
-              <label for="present-participle">Past participle:</label>
-              <input type="text" class="form-control" ng-model="pastParticiple">
+              <label for="pastParticiple">Past participle:</label>
+              <input id ="pastParticiple" type="text" class="form-control" ng-model="pastParticiple">
             </div>
             <button id="submit" type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
           </form>
@@ -77,10 +77,10 @@
       </div>
         <div class="row" ng-if="result != null">
           <div class="col-xs-4 col-sm-offset-8">
-            <h2 ng-bind="'result is ' + result + '%'"></h2>    
+            <h2 ng-bind="'result is ' + result + '%'"></h2>
+            <button id="reset" type="submit" class="btn btn-default" ng-click="reset()">Restart</button>    
         </div>
     </div>
-    <button ng-click="localStorageClear()">Clear local storage</button>
   </body>
 
 

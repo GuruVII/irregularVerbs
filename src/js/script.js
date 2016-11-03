@@ -7,6 +7,7 @@ $scope.writtenVerbs = []; //all the verbs the user inputed
 $("#start").click(function(){ //starts the entire page and selects the words.
 	$("#input-area").removeClass("hidden");
 	$("#start").addClass("hidden");
+	$("#presentSimple").focus();
 });
 
 function createVerbStorage() { //function checks if there is already a verbArray in local storage and if there isn't creates one 
@@ -49,6 +50,15 @@ function WordSelect(){ //This funtion selects the words we are going to use by c
 	localStorage["selectedVerbArray"] = JSON.stringify(selectedWords); //creates localstorage item for the selected words
 	localStorage["verbArray"] = JSON.stringify(tempArray); //stores all the verbs, including the % increase.
 
+};
+
+$scope.reset = function () { //functions resets the page
+	createVerbStorage();
+	WordSelect();
+	$scope.writtenVerbs = []
+	$scope.result = null;
+	$("#input-area").addClass("hidden");
+	$("#start").removeClass("hidden");
 };
 
 $scope.submit = function(){
@@ -96,11 +106,9 @@ $scope.submit = function(){
 		$scope[currentValue] = "" ;
 	});
 	console.log(selectedVerbArray);
-
-
-	
 	if ($scope.writtenVerbs.length == selectedVerbArray.length ){ //compares the amount of inputed verbs with the amount selected by the computer
 		correctAnwsers = 0;
+		$("#submit").addClass("disabled")
 		$scope.writtenVerbs.forEach(function(currentValue){
 			console.log(currentValue);
 			if (currentValue[8] == 1){ //the ninth entry in the writtenverbsArray tells us if all the three vers are correct
@@ -114,11 +122,8 @@ $scope.submit = function(){
 	{
 		$scope.verb = selectedVerbArray[$scope.writtenVerbs.length][1]; //shows next verb
 	};
-
-
-
 	$scope.selectedVerbs = selectedVerbArray;
-
+	$("#presentSimple").focus();
 	var tempArray = JSON.parse(localStorage.getItem("verbArray"));
 	tempArray.splice(selectedVerbArray[checkedVerb[0]][0],1,selectedVerbArray[checkedVerb[0]]);
 	localStorage["verbArray"] = JSON.stringify(tempArray);
