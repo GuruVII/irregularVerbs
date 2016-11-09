@@ -111,12 +111,19 @@ $("#start").click(function(){ //starts the entire page and selects the words.
 	$("#input-area").removeClass("hidden");
 	$("#start").addClass("hidden");
 	$("#presentSimple").focus();
+	$scope.presentSimple = ""; //So that you cna submit empty fields even when starting
+	$scope.pastSimple = "";
+	$scope.pastParticiple = "";
 });
 
-function createVerbStorage() { //function checks if there is already a verbArray in local storage and if there isn't creates one 
+function createVerbStorage() { //function checks if there is already a verbArray in local storage and if there isn't creates one
 	if (localStorage.getItem("verbArray") === null) {
 		localStorage["verbArray"] = JSON.stringify(masterVerbArray);
 	};
+};
+
+function emptySelectedVerbArray(){ //clears the selected verbs
+	localStorage.removeItem("selectedVerbArray");
 };
 
 function WordSelect(){ //This funtion selects the words we are going to use by caling another function
@@ -170,8 +177,14 @@ $scope.submit = function(){
 	var correctAnwsers = 0;
 	checkedVerb.push($scope.writtenVerbs.length); //is used as index
 	checkedVerb.push($scope.verb); //pushes in the current verb in then native language
-	tenses.forEach(function(currentValue){ 
-		checkedVerb.push($scope[currentValue]); //dynamic scope names
+	tenses.forEach(function(currentValue){
+		if ($scope[currentValue] == ""){ //so that a tooltip can be shown when you hover over N/A
+			checkedVerb.push("N/A");
+		}
+		else {
+			checkedVerb.push($scope[currentValue]); //dynamic scope names
+		}
+		
 	});
 	for (var i = 2; i < 5; i++){ //we start at two, becuase at 0 is the index and at 1 there is the original (nontranslated word)
 		if (selectedVerbArray[checkedVerb[0]][i].toUpperCase()==checkedVerb[i].toUpperCase().trim()){ //checks if the values are the same
@@ -184,8 +197,8 @@ $scope.submit = function(){
 	};
 	if ((correctAnwsers/3)==1){
 		checkedVerb.push(1);
-		if (selectedVerbArray[checkedVerb[0]][5] > 0.02){ //if the anwser is correct and the chance isn't already 0.02, it lowers the chance of the word appearring
-			selectedVerbArray[checkedVerb[0]][5] = selectedVerbArray[checkedVerb[0]][5] - 0.01;
+		if (selectedVerbArray[checkedVerb[0]][5] > 0.1){ //if the anwser is correct and the chance isn't already 0.1, it lowers the chance of the word appearring
+			selectedVerbArray[checkedVerb[0]][5] = selectedVerbArray[checkedVerb[0]][5] - 0.1;
 		};	
 	}
 	else {
@@ -221,6 +234,7 @@ $scope.submit = function(){
 };
 
 createVerbStorage();
+emptySelectedVerbArray();
 WordSelect();
 
 }]);

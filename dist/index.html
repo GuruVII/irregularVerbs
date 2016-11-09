@@ -41,22 +41,21 @@
           <div class="col-sm-4 col-xs-12 col-sm-offset-4" id="current-word"></div>
         </div>
         <div class="row">
+          <div class="col-sm-4 col-xs-12 col-sm-offset-3 text-center "><h3><span class="" ng-bind="verb" ng-model="original"><span></h3></div>
+        </div>
+        <div class="row">
           <form class="form-inline top-margin-25px ">
-            <div class="form-group" ng-if="verb">
-              <label>Glagol:</label>
-              <span class="form-control" ng-bind="verb" ng-model="original"><span>
-            </div>
             <div class="form-group">
               <label for="presentSimple">Present simple:</label>
-              <input id ="presentSimple" type="text" class="form-control" ng-model="presentSimple">
+              <input id ="presentSimple" type="text" class="form-control" ng-model="presentSimple" value ="">
             </div>
             <div class="form-group">
               <label for="pastSimple">Past simple:</label>
-              <input id ="pastSimple" type="text" class="form-control" ng-model="pastSimple">
+              <input id ="pastSimple" type="text" class="form-control" ng-model="pastSimple" value ="">
             </div>
             <div class="form-group">
               <label for="pastParticiple">Past participle:</label>
-              <input id ="pastParticiple" type="text" class="form-control" ng-model="pastParticiple">
+              <input id ="pastParticiple" type="text" class="form-control" ng-model="pastParticiple" value ="">
             </div>
             <button id="submit" type="submit" class="btn btn-default" ng-click="submit()">Submit</button>
           </form>
@@ -77,6 +76,7 @@
       </div>
         <div class="row" ng-if="result != null">
           <div class="col-xs-4 col-sm-offset-8">
+            <h2 ng-bind="20*(result/100) + '/20'"></h2><br>
             <h2 ng-bind="'result is ' + result + '%'"></h2>
             <button id="reset" type="submit" class="btn btn-default" ng-click="reset()">Restart</button>    
         </div>
