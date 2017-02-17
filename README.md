@@ -1,2 +1,2 @@
 # irregularVerbs
-[DEMO]](http://guru.mobiusit.net/irregularVerbs/)
+[DEMO](http://guru.mobiusit.net/irregularVerbs/)
